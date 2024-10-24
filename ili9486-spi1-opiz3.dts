@@ -1,0 +1,76 @@
+/*
+OrangePi Zero 3 -> ILI9486 LCD connections
+SPI CLOCK = PH6
+SPI DO (LCD MISO) = PH8 (OPIZ MISO)
+SPI DI (LCD MOSI) = PH7 (OPIZ MOSI)
+LCD DATA/CONTROL = PC8
+LCD RESET = PC10
+CHIP SELECT = PH9 < NOT USED ANYMORE ;)
+VCC = 3.3V PIN
+GND = GND PIN
+*/
+
+/dts-v1/;
+/plugin/;
+/{
+    compatible = "allwinner,sun4i-a10", "allwinner,sun7i-a20", "allwinner,sun8i-h3", "allwinner,sun50i-a64", "allwinner,sun50i-h5";
+	fragment@0 {
+	    target = <&pio>;
+	    __overlay__{
+	        display_pins: display_pins {
+                    pins = "PC8", "PC10"; /* DC, reset pins*/
+                    function = "gpio_out", "gpio_out";
+                };
+            };
+	};
+	fragment@1 {
+        target = <&spi1>;
+        __overlay__ {
+            /* needed to avoid dtc warning */
+            #address-cells = <1>;
+            #size-cells = <0>;
+            status="okay";
+            pinctrl-names = "default";
+            pinctrl-0 = <&spi1_pins>; /* Mux the PI to make sure they are set in spi Mode */
+            /*cs-gpios = <&pio 0 13 0>;  /* PA13 chip select NOT USED! */
+            num-chipselects = <0>;
+            display: display@0 {
+                compatible = "ilitek,ili9486";
+                /*compatible = "ilitek,ili9486";*/
+                reg = <0>;
+                pinctrl-names = "default";
+                pinctrl-1 = <&display_pins>;
+                spi-max-frequency = <40000000>;
+                rotation = <270>; /* rotate for ili9341 */
+                bgr=<0>;
+                fps = <15>;
+                buswidth = <8>;
+                height = <480>;
+                width = <320>;
+                reset-gpios = <&pio 2 10 0>; /* PC10 reset pin*/
+                dc-gpios = <&pio 2 8 0>; /* PC8 Data control pin */
+                debug = <3>;
+                init = <0x10000b0 0x00
+                        0x1000011
+			0x20000ff
+			0x100003a 0x55
+			0x1000036 0x28
+			0x10000c2 0x44
+			0x10000c5 0x00 0x00 0x00 0x00
+			0x10000e0 0x0f 0x1f 0x1c 0x0c 0x0f 0x08 0x48 0x98 0x37 0x0a 0x13 0x04 0x11 0x0d 0x00
+			0x10000e1 0x0f 0x32 0x2e 0x0b 0x0d 0x05 0x47 0x75 0x37 0x06 0x10 0x03 0x24 0x20 0x00
+			0x10000e2 0x0f 0x32 0x2e 0x0b 0x0d 0x05 0x47 0x75 0x37 0x06 0x10 0x03 0x24 0x20 0x00
+			0x1000036 0x28
+			0x1000011
+			0x1000029>;
+            };
+        };
+    };
+
+
+    __overrides__ {
+        rotate =  <&display>,"rotate:0";
+        fps =     <&display>,"fps:0";
+        debug =   <&display>,"debug:0";
+    };
+};
