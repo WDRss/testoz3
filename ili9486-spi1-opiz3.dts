@@ -44,16 +44,6 @@
                         0x20000ff  // Delay (255ms)
                         0x1000029>; // Display ON
             };
-
-            touchscreen@1 {
-                compatible = "ti,xpt2046";
-                reg = <1>; /* CS1 para Touch */
-                spi-max-frequency = <2000000>; /* 2MHz */
-                interrupt-parent = <&pio>;
-                interrupts = <2 10 2>; /* PC10, IRQ */
-                pendown-gpios = <&pio 2 10 0>;
-                vcc-supply = <&reg_vcc>;
-            };
         };
     };
 };
