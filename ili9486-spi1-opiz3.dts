@@ -43,25 +43,6 @@
                         0x1000011  // Sleep Out
                         0x20000ff  // Delay (255ms)
                         0x1000029>; // Display ON
-           };
-
-            ads7846: ads7846@1 {
-                compatible = "ti,xpt2046";
-                reg = <1>;
-                spi-max-frequency = <2000000>;
-                interrupts = <2 15 2>; /* PC15- IRQ */
-                interrupt-parent = <&pio>;
-                pendown-gpios = <&pio 2 15 1>; /* PC15 */
-                
-                /* OPTIONS */
-                ti,x-min = /bits/ 16 <0>;
-                ti,y-min = /bits/ 16 <0>;
-        		ti,x-max = /bits/ 16 <0xFFF>;
-        		ti,y-max = /bits/ 16 <0xFFF>;
-                ti,pressure-min = /bits/ 16 <0>;
-                ti,pressure-max = /bits/ 16 <0xFFF>;
-                ti,x-plate-ohms = /bits/ 16 <400>;
-                ti,swap-xy = <1>;
             };
         };
     };
