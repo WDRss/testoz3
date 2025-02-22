@@ -43,6 +43,15 @@
                         0x1000011  // Sleep Out
                         0x20000ff  // Delay (255ms)
                         0x1000029>; // Display ON
+           };
+
+            ads7846: ads7846@1 {
+                compatible = "ti,xpt2046";
+                reg = <1>;
+                spi-max-frequency = <2000000>;
+                interrupts = <2 10 2>; /* PC10 - IRQ */
+                interrupt-parent = <&pio>;
+                pendown-gpios = <&pio 2 10 1>; /* PC10 */
             };
         };
     };
