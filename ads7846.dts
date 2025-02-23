@@ -1,0 +1,32 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "allwinner,sun50i-h616";
+
+    fragment@0 {
+        target = <&spi1>;
+        __overlay__ {
+            status = "okay";
+
+            xpt2046@0 {
+                compatible = "ti,ads7846";
+                reg = <0>;
+                spi-max-frequency = <2000000>;
+                interrupt-parent = <&pio>;
+                interrupts = <&pio 2 10 2>; /* PC10 - IRQ */
+                pendown-gpio = <&pio 2 10 1>;  /* PC10 */
+                vcc-supply = <&reg_3p3v>;
+
+                wakeup-source;
+                ti,keep-vref-on;
+                ti,x-min = /bits/ 16 <200>;
+                ti,x-max = /bits/ 16 <3900>;
+                ti,y-min = /bits/ 16 <200>;
+                ti,y-max = /bits/ 16 <3900>;
+                ti,pressure-min = /bits/ 16 <0>;
+                ti,pressure-max = /bits/ 16 <255>;
+            };
+        };
+    };
+};
