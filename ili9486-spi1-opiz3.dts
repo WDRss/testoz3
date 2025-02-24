@@ -13,11 +13,11 @@
                 //compatible = "ilitek,ili9486";
                 reg = <0>;
                 pinctrl-names = "default";
-                spi-max-frequency = <20000000>;
+                spi-max-frequency = <21000000>;
                 txbuflen = <65536>;
-                rotate = <90>;
+                rotate = <270>;
                 bgr = <0>;
-                fps = <30>;
+                fps = <60>;
                 buswidth = <8>;
                 regwidth = <16>;
                 height = <480>;
@@ -44,28 +44,6 @@
                         0x1000011  // Sleep Out
                         0x20000ff  // Delay (255ms)
                         0x1000029>; // Display ON
-            };
-        };
-    };
-
-    fragment@1 {
-        target = <&spi1>;
-        __overlay__ {
-            xpt2046@1 {
-                compatible = "ti,ads7846";
-                reg = <1>;
-                spi-max-frequency = <2000000>;
-                interrupt-parent = <&pio2>;
-                interrupts = <10 IRQ_TYPE_EDGE_FALLING>; /* PC10 */
-                pendown-gpio = <&pio2 10 GPIO_ACTIVE_LOW>; /* PC10 */
-                wakeup-source;
-                ti,keep-vref-on;
-                ti,x-min = /bits/ 16 <200>;
-                ti,x-max = /bits/ 16 <3900>;
-                ti,y-min = /bits/ 16 <200>;
-                ti,y-max = /bits/ 16 <3900>;
-                ti,pressure-min = /bits/ 16 <0>;
-                ti,pressure-max = /bits/ 16 <255>;
             };
         };
     };
