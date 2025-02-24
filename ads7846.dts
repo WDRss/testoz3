@@ -1,31 +1,26 @@
 /dts-v1/;
 /plugin/;
-
 / {
     compatible = "allwinner,sun50i-h616";
-
-    fragment@0 {
+    
+    fragment@1 {
         target = <&spi1>;
         __overlay__ {
             status = "okay";
-
-            xpt2046@0 {
-                compatible = "ti,ads7846";
+            cs-gpios = <&pio 7 5 0>,<&pio 2 15 0>; /* SPI CS pins for LCD and touch */
+            touch: touchscreen@1 {
+                compatible = "xpt,xpt2046";
                 reg = <0>;
-                spi-max-frequency = <2000000>;
-                interrupt-parent = <&pio>;
-                interrupts = <&pio 2 10 2>; /* PC10 - IRQ */
-                pendown-gpio = <&pio 2 10 1>;  /* PC10 */
-                vcc-supply = <&reg_3p3v>;
-
-                wakeup-source;
-                ti,keep-vref-on;
-                ti,x-min = /bits/ 16 <200>;
-                ti,x-max = /bits/ 16 <3900>;
-                ti,y-min = /bits/ 16 <200>;
-                ti,y-max = /bits/ 16 <3900>;
-                ti,pressure-min = /bits/ 16 <0>;
-                ti,pressure-max = /bits/ 16 <255>;
+                spi-max-frequency = <10000000>;  // Defina a frequência de SPI do touch
+                irq-gpios = <&pio 2 10 0>;  // Pino de interrupção do touch
+                reset-gpios = <&pio 2 14 1>;  // Pino de reset (se necessário)
+                x-min = <0>;
+                x-max = <480>;
+                y-min = <0>;
+                y-max = <320>;
+                swap-x-y;
+                touchscreen-size-x = <480>;
+                touchscreen-size-y = <320>;
             };
         };
     };
