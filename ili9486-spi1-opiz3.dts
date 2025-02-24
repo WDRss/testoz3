@@ -1,5 +1,6 @@
 /dts-v1/;
 /plugin/;
+
 / {
     compatible = "allwinner,sun50i-h616";
     fragment@0 {
@@ -44,16 +45,20 @@
                         0x20000ff  // Delay (255ms)
                         0x1000029>; // Display ON
             };
+        };
+    };
 
-            xpt2046@0 {
+    fragment@1 {
+        target = <&spi1>;
+        __overlay__ {
+            xpt2046@1 {
                 compatible = "ti,ads7846";
                 reg = <1>;
                 spi-max-frequency = <2000000>;
                 interrupt-parent = <&pio>;
-                interrupts = <&pio 2 10 2>; /* PC10 - IRQ */
-                pendown-gpio = <&pio 2 10 1>; /* PC10 */
+                interrupts = <2 10 IRQ_TYPE_EDGE_FALLING>; /* PC10 */
+                pendown-gpio = <&pio 2 10 GPIO_ACTIVE_LOW>; /* PC10 */
                 vcc-supply = <&reg_3p3v>;
-
                 wakeup-source;
                 ti,keep-vref-on;
                 ti,x-min = /bits/ 16 <200>;
