@@ -40,6 +40,8 @@
                 ti,pressure-max = /bits/ 16 <0xFFF>;
                 ti,x-plate-ohms = /bits/ 16 <400>;
                 ti,swap-xy = <1>;
+		ti,invert-x = <0>;
+		ti,invert-y = <1>;
 	    };
         };
     };
