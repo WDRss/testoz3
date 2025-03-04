@@ -13,7 +13,7 @@
                 reg = <0>;
                 pinctrl-names = "default";
                 spi-max-frequency = <21000000>;
-                rotation = <270>;
+                rotate = <270>;
                 bgr = <0>;
                 fps = <30>;
                 buswidth = <8>;
