@@ -12,7 +12,7 @@
                 compatible = "waveshare,rpi-lcd-35";
                 reg = <0>;
                 pinctrl-names = "default";
-                spi-max-frequency = <21000000>;
+                spi-max-frequency = <30000000>;
                 rotate = <270>;
                 bgr = <0>;
                 fps = <30>;
@@ -20,20 +20,20 @@
                 reset-gpios = <&pio 2 7 0>; /* PC7 */
                 dc-gpios = <&pio 2 14 0>; /* PC14 */
                 debug = <3>;
-                init = <0x10000b0 0x00
-			0x1000011
-			0x20000ff
-			0x100003a 0x55
-			0x1000036 0x28
-			0x10000c2 0x44
-			0x10000c5 0x00 0x00 0x00 0x00
-			0x10000e0 0x0f 0x1f 0x1c 0x0c 0x0f 0x08 0x48 0x98 0x37 0x0a 0x13 0x04 0x11 0x0d 0x00
-			0x10000e1 0x0f 0x32 0x2e 0x0b 0x0d 0x05 0x47 0x75 0x37 0x06 0x10 0x03 0x24 0x20 0x00
-			0x10000e2 0x0f 0x32 0x2e 0x0b 0x0d 0x05 0x47 0x75 0x37 0x06 0x10 0x03 0x24 0x20 0x00
-			/* piscreen -> waveshare35a */
-			0x1000036 0x28
-			0x1000011
-			0x1000029>;
+                display-timings {
+                    native-mode = <&timing0>;
+                    timing0: timing0 {
+                        clock-frequency = <30000000>;
+                        hactive = <480>;
+                        vactive = <320>;
+                        hsync-len = <10>;
+                        vsync-len = <2>;
+                        hfront-porch = <2>;
+                        hback-porch = <2>;
+                        vfront-porch = <2>;
+                        vback-porch = <2>;
+                    };
+                };
             };
 
             ads7846: ads7846@1 {
