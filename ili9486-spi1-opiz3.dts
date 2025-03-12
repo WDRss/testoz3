@@ -12,7 +12,7 @@
                 compatible = "waveshare,rpi-lcd-35";
                 reg = <0>;
                 pinctrl-names = "default";
-                spi-max-frequency = <30000000>;
+                spi-max-frequency = <50000000>;
                 rotate = <270>;
                 bgr = <0>;
                 fps = <30>;
@@ -20,20 +20,6 @@
                 reset-gpios = <&pio 2 7 0>; /* PC7 */
                 dc-gpios = <&pio 2 14 0>; /* PC14 */
                 debug = <3>;
-                display-timings {
-                    native-mode = <&timing0>;
-                    timing0: timing0 {
-                        clock-frequency = <30000000>;
-                        hactive = <480>;
-                        vactive = <320>;
-                        hsync-len = <10>;
-                        vsync-len = <2>;
-                        hfront-porch = <2>;
-                        hback-porch = <2>;
-                        vfront-porch = <2>;
-                        vback-porch = <2>;
-                    };
-                };
             };
 
             ads7846: ads7846@1 {
