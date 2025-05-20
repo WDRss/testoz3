@@ -14,7 +14,7 @@
                 pinctrl-names = "default";
                 spi-max-frequency = <46000000>;
                 rotate = <270>;
-                bgr = <0>;
+                bgr = <1>;
                 fps = <30>;
                 buswidth = <8>;
                 reset-gpios = <&pio 2 7 0>; /* PC7 */
@@ -28,8 +28,8 @@
                 pinctrl-names = "default";
                 spi-max-frequency = <1000000>;
                 interrupt-parent = <&pio>;
-                interrupts = <2 6 2>; /* PC6 - IRQ */
-                pendown-gpio = <&pio 2 6 1>; /* PC6 */
+                interrupts = <2 10 2>; /* PC10 - IRQ */
+                pendown-gpio = <&pio 2 10 1>; /* PC10 */
                 
                 /* OPTIONS */
                 ti,x-min = /bits/ 16 <0>;
