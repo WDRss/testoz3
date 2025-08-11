@@ -6,15 +6,14 @@
         target = <&spi1>;
         __overlay__ {
             status = "okay";
-	    dma-names = "";
 	    cs-gpios = <&pio 7 9 0>,<&pio 2 10 0>; /*PH9=CS0 for lcd, PC10=CS1 for touch*/
             ili9486: ili9486@0 {
                 compatible = "waveshare,rpi-lcd-35";
                 reg = <0>;
                 pinctrl-names = "default";
-                spi-max-frequency = <48000000>;
+                spi-max-frequency = <32000000>;
                 rotate = <270>;
-                bgr = <1>;
+                bgr = <0>;
                 fps = <30>;
                 buswidth = <8>;
                 reset-gpios = <&pio 2 7 0>; /* PC7 */
@@ -46,3 +45,4 @@
         };
     };
 };
+
