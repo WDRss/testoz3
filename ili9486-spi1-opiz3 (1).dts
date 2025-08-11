@@ -1,0 +1,48 @@
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "allwinner,sun50i-h616";
+    fragment@0 {
+        target = <&spi1>;
+        __overlay__ {
+            status = "okay";
+	    dma-names = "";
+	    cs-gpios = <&pio 7 9 0>,<&pio 2 10 0>; /*PH9=CS0 for lcd, PC10=CS1 for touch*/
+            ili9486: ili9486@0 {
+                compatible = "waveshare,rpi-lcd-35";
+                reg = <0>;
+                pinctrl-names = "default";
+                spi-max-frequency = <48000000>;
+                rotate = <270>;
+                bgr = <1>;
+                fps = <30>;
+                buswidth = <8>;
+                reset-gpios = <&pio 2 7 0>; /* PC7 */
+                dc-gpios = <&pio 2 14 0>; /* PC14 */
+                debug = <3>;
+            };
+
+            ads7846: ads7846@1 {
+                compatible = "ti,ads7846";
+                reg = <1>;
+                pinctrl-names = "default";
+                spi-max-frequency = <1000000>;
+                interrupt-parent = <&pio>;
+                interrupts = <2 10 2>; /* PC10 - IRQ */
+                pendown-gpio = <&pio 2 10 1>; /* PC10 */
+                
+                /* OPTIONS */
+                ti,x-min = /bits/ 16 <0>;
+                ti,y-min = /bits/ 16 <0>;
+		ti,x-max = /bits/ 16 <0xFFF>;
+		ti,y-max = /bits/ 16 <0xFFF>;
+                ti,pressure-min = /bits/ 16 <0>;
+                ti,pressure-max = /bits/ 16 <0xFFF>;
+                ti,x-plate-ohms = /bits/ 16 <400>;
+                ti,swap-xy = <1>;
+		ti,invert-x = <0>;
+		ti,invert-y = <1>;
+	    };
+        };
+    };
+};
