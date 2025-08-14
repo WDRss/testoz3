@@ -12,10 +12,10 @@
                 compatible = "waveshare,rpi-lcd-35";
                 reg = <0>;
                 pinctrl-names = "default";
-                spi-max-frequency = <32000000>;
-                rotate = <270>;
+                spi-max-frequency = <40000000>;
+                rotate = <90>;
                 bgr = <0>;
-                fps = <30>;
+                fps = <45>;
                 buswidth = <8>;
                 reset-gpios = <&pio 2 7 0>; /* PC7 */
                 dc-gpios = <&pio 2 14 0>; /* PC14 */
@@ -46,5 +46,6 @@
         };
     };
 };
+
 
 
