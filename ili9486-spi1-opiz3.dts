@@ -29,8 +29,8 @@
                 pinctrl-names = "default";
                 spi-max-frequency = <1000000>;
                 interrupt-parent = <&pio>;
-                interrupts = <2 10 2>; /* PC10 - IRQ */
-                pendown-gpio = <&pio 2 10 1>; /* PC10 */
+                interrupts = <2 6 2>; /* PC6 - IRQ */
+                pendown-gpio = <&pio 2 6 1>; /* PC6 */
                 
                 /* OPTIONS */
                 ti,x-min = /bits/ 16 <0>;
@@ -47,6 +47,7 @@
         };
     };
 };
+
 
 
 
